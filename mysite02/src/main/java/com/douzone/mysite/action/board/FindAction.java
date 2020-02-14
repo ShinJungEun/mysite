@@ -14,14 +14,15 @@ import com.douzone.mysite.vo.UserVo;
 import com.douzone.web.action.Action;
 import com.douzone.web.util.WebUtil;
 
-public class ListAction implements Action {
+public class FindAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		String kwd = request.getParameter("kwd");
+		List<BoardVo> list = new BoardRepository().searchList1(kwd);
 		
-		List<BoardVo> list = new BoardRepository().findList();
+		request.setAttribute("list", list);
 
-		request.setAttribute("list", list);		
 		
 		int listLen = list.size();
 		double pageLen = Math.ceil((double)listLen/5);
@@ -29,13 +30,14 @@ public class ListAction implements Action {
 		// page 개수
 		request.setAttribute("pageLen", (int)pageLen);
 		
-		
 		String page = request.getParameter("page");
 		if(page == null)
 			request.setAttribute("page", 1);
 		else
 			request.setAttribute("page", page);
 		
+		request.setAttribute("kwd", kwd);
+
 		HttpSession session = request.getSession(true);
 		UserVo userVo = (UserVo)session.getAttribute("authUser");
 		request.setAttribute("userVo", userVo);

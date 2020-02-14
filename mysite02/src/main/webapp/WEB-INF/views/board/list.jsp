@@ -14,8 +14,9 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp"/>
 		<div id="content">
 			<div id="board">
-				<form id="search_form" action="" method="post">
-					<input type="text" id="kwd" name="kwd" value="">
+				<form id="search_form" action="" method="post" action="${ pageContext.request.contextPath }/board">
+					<input type="hidden" name="a" value="find">
+					<input type="text" id="kwd" name="kwd" value="" >
 					<input type="submit" value="찾기">
 				</form>
 				<input type="hidden" name="a" value="select">
@@ -28,9 +29,14 @@
 						<th>작성일</th>
 						<th>&nbsp;</th>
 					</tr>	
+						
+						<!-- 
 						<c:if test="${ not empty param.page }">
 							<c:set var="page" value="${ param.page }"/>						
 						</c:if>
+						 -->
+						
+						
 						<c:forEach items="${ list }" begin="${ (page-1)*5 }" end="${ (page-1)*5+4 }" step="1" var="BoardVo" varStatus="status">
 							<tr>
 								<td>${ status.count +((page-1)*5) }</td>	
@@ -86,13 +92,23 @@
 								</c:otherwise>
 							</c:choose>
 							
+							
+						<c:choose>
+							<c:when test="${ not empty kwd }">
+								<c:set var="ac" value = "find"/>
+							</c:when>
+							<c:otherwise>
+								<c:set var="ac" value = "list"/>							
+							</c:otherwise>
+						</c:choose>
+						
 							<c:choose>
 								<c:when test="${ page eq 1 }">
 									<li><a href="" style="color: lightgrey">◀</a></li>										
 								</c:when>
 
 								<c:otherwise>
-									<li><a href="${ pageContext.request.contextPath }/board?page=${ page - 1 }">◀</a></li>
+									<li><a href="${ pageContext.request.contextPath }/board?a=${ ac }&page=${ page - 1 }&kwd=${ kwd }">◀</a></li>
 								</c:otherwise>
 							</c:choose>
 							
@@ -103,7 +119,7 @@
 									</c:when>
 									
 									<c:otherwise>
-										<li><a href="${ pageContext.request.contextPath }/board?page=${ no }">${ no }</a></li>										
+										<li><a href="${ pageContext.request.contextPath }/board?a=${ ac }&page=${ no }&kwd=${ kwd }">${ no }</a></li>										
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
@@ -113,27 +129,13 @@
 									<li><a href="" style="color: lightgrey">▶</a></li>										
 								</c:when>
 								<c:otherwise>
-									<li><a href="${ pageContext.request.contextPath }/board?page=${ page + 1 }">▶</a></li>	
+									<li><a href="${ pageContext.request.contextPath }/board?a=${ ac }&page=${ page + 1 }&kwd=${ kwd }">▶</a></li>	
 								</c:otherwise>
 							</c:choose>
 
 						</ul>
 					</div>
-				
-				
-				<!-- 
-				<div class="pager">
-					<ul>
-						<li><a href="">◀</a></li>
-						<li class ="selected">1</li>
-						<li><a href="${ pageContext.request.contextPath }/board?page=2">2</a></li>
-						<li><a href="">3</a></li>
-						<li>4</li>
-						<li>5</li>
-						<li><a href="">▶</a></li>
-					</ul>
-				</div>	
-				 -->
+
 
 				
 				<c:if test="${ not empty authUser }">
