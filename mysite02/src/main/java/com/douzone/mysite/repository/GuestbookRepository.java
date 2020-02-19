@@ -171,9 +171,9 @@ public class GuestbookRepository {
 		Connection conn = null;
 
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("org.mariadb.jdbc.Driver");
 
-			String url = "jdbc:mysql://127.0.0.1:3306/webdb";
+			String url = "jdbc:mysql://192.168.1.99:3307/webdb";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");		
 
 		} catch (ClassNotFoundException e) {
