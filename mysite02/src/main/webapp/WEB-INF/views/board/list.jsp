@@ -45,7 +45,7 @@
 										<img src='/mysite02/assets/images/reply.png'>
 									</c:if>
 									<c:choose>
-										<c:when test="${ BoardVo.userNo == 1 }">
+										<c:when test="${ BoardVo.userNo == 99999999 }">
 											<a>(삭제된 게시물입니다.)</a><td></td><td></td><td></td>
 										</c:when>
 										<c:otherwise>

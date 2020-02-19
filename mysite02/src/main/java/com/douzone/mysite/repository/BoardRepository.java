@@ -348,7 +348,8 @@ public class BoardRepository {
 		try {
 			conn = getConnection();
 
-			String sql = "update board set user_no=1 where no=?";
+			// 99999999는 관리자 계정
+			String sql = "update board set user_no=99999999 where no=?";
 
 			pstmt = conn.prepareStatement(sql);
 
