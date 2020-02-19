@@ -175,7 +175,7 @@ public class GuestbookRepository {
 
 			String url = "jdbc:mysql://192.168.1.99:3307/webdb";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");		
-
+			
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패:" + e);
 		} 
