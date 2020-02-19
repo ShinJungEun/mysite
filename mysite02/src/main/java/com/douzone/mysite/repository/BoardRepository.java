@@ -348,7 +348,7 @@ public class BoardRepository {
 		try {
 			conn = getConnection();
 
-			String sql = "update board set user_no=99999999 where no=?";
+			String sql = "update user as a inner join board as b on a.no = b.user_no set a.no=99999999 where b.no=?";
 
 			pstmt = conn.prepareStatement(sql);
 
