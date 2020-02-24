@@ -45,7 +45,7 @@
 										<img src='/mysite02/assets/images/reply.png'>
 									</c:if>
 									<c:choose>
-										<c:when test="${ BoardVo.userNo == 99999999 }">
+										<c:when test="${ BoardVo.regDate eq '0002-11-30 12:00:00.0' }">
 											<a>(삭제된 게시물입니다.)</a><td></td><td></td><td></td>
 										</c:when>
 										<c:otherwise>

@@ -16,7 +16,6 @@ public class DeleteAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		Long no = Long.parseLong(request.getParameter("no"));
 		
-		// userNo가 관리자번호인 99999999번으로 바뀜
 		new BoardRepository().delete(no);
 
 		WebUtil.redirect(request.getContextPath() + "/board", request, response);
