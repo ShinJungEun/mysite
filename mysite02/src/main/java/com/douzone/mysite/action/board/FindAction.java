@@ -19,7 +19,7 @@ public class FindAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		String kwd = request.getParameter("kwd");
-		List<BoardVo> list = new BoardRepository().searchList1(kwd);
+		List<BoardVo> list = new BoardRepository().searchList(kwd);
 		
 		request.setAttribute("list", list);
 

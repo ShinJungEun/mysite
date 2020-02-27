@@ -15,16 +15,11 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${ pageContext.request.contextPath }/board">
-					<c:choose>
-					<c:when test="${ reply eq 'ok' }">
+				<form class="board-form" method="post" action="${ pageContext.request.contextPath }/board/write">
+					<c:if test="${ not empty no }">
 						<input type = "hidden" name = "no" value = "${ no }">
-						<input type = "hidden" name = "a" value = "reply">
-					</c:when>
-					<c:otherwise>
-						<input type = "hidden" name = "a" value="insert">					
-					</c:otherwise>
-					</c:choose>
+					</c:if> 
+					
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>
@@ -36,7 +31,7 @@
 						<tr>
 							<td class="label">내용</td>
 							<td>
-								<textarea id="content" name="content"></textarea>
+								<textarea id="content" name="contents"></textarea>
 							</td>
 						</tr>
 					</table>

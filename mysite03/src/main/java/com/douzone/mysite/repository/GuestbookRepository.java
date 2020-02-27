@@ -9,65 +9,25 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.douzone.mysite.exception.GuestbookRepositoryException;
 import com.douzone.mysite.vo.GuestbookVo;
 
 @Repository
 public class GuestbookRepository {
 
+	@Autowired
+	private SqlSession sqlSession;
+	
 	public List<GuestbookVo> findAll() {
-		List<GuestbookVo> result = new ArrayList<>();
+		return sqlSession.selectList("guestbook.findAll");
 
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
+//		<GuestbookVo> 
 
-			conn = getConnection();
-
-			String sql = "select no, name, date_format(reg_date,'%Y-%m-%d %h:%i:%s'), contents, password from guestbook order by no desc";
-
-			pstmt = conn.prepareStatement(sql);
-
-			rs = pstmt.executeQuery(sql);
-
-			while(rs.next()) {
-				Long no = rs.getLong(1);
-				String name = rs.getString(2);
-				Timestamp regDate = rs.getTimestamp(3);
-				String contents = rs.getString(4);
-				String password = rs.getString(5);
-
-				GuestbookVo vo = new GuestbookVo();
-
-				vo.setNo(no);
-				vo.setName(name);
-				vo.setRegDate(regDate);
-				vo.setContents(contents);
-				vo.setPassword(password);
-
-				result.add(vo);
-			}
-
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-
-			try {
-				if(rs != null)
-					rs.close();
-
-				if(pstmt != null)
-					pstmt.close();
-
-				if(conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return result;
+		
 	}
 
 	public int insert(GuestbookVo vo) {
@@ -90,7 +50,7 @@ public class GuestbookRepository {
 			result = count;
 
 		} catch (SQLException e) {
-			System.out.println("error:" + e);
+			throw new GuestbookRepositoryException(e.getMessage());
 		} finally {
 			try {
 				if(pstmt != null)
@@ -99,7 +59,7 @@ public class GuestbookRepository {
 				if(conn != null)
 					conn.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new GuestbookRepositoryException(e.getMessage());
 			}
 
 		}
@@ -140,7 +100,7 @@ public class GuestbookRepository {
 			result = count;
 
 		} catch (SQLException e) {
-			System.out.println("error:" + e);
+			throw new GuestbookRepositoryException(e.getMessage());
 		} finally {
 			try {
 				if(pstmt != null)
@@ -149,7 +109,7 @@ public class GuestbookRepository {
 				if(conn != null)
 					conn.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new GuestbookRepositoryException(e.getMessage());
 			}
 
 		}
@@ -180,7 +140,7 @@ public class GuestbookRepository {
 			conn = DriverManager.getConnection(url, "webdb", "webdb");		
 			
 		} catch (ClassNotFoundException e) {
-			System.out.println("드라이버 로딩 실패:" + e);
+			throw new GuestbookRepositoryException("드라이버 로딩 실패:" + e);			
 		} 
 
 		return conn;	

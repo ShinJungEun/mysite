@@ -18,13 +18,18 @@ public class UserService {
 		
 	}
 
-	public UserVo getUser(UserVo vo) {
-		return userRepository.findByEmailAndPassword(vo);
+	public UserVo getUser(UserVo userVo) {
+		return userRepository.findByEmailAndPassword(userVo);
 	}
 
 	public UserVo getUser(Long no) {
 		
 		return userRepository.findByNo(no);
+	}
+
+	public boolean updateUser(UserVo userVo) {
+		int count = userRepository.update(userVo);
+		return count == 1;
 	}
 
 }

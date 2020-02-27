@@ -185,7 +185,8 @@ public class BoardRepository {
 		return result;
 
 	}
-
+	
+	
 	public Boolean insert(BoardVo vo) {
 		Boolean result = false;
 		Connection conn = null;
@@ -193,7 +194,7 @@ public class BoardRepository {
 		try {
 			conn = getConnection();
 
-			String sql = "insert into board values(null, ?, ?, 0, now(), (select ifnull(max(b.no),0)+1 from board b), 0, 0, ?)"; 
+			String sql = "insert into board values(null, ?, ?, 0, now(), (select ifnull(max(b.g_no),0)+1 from board b), 0, 0, ?)"; 
 
 
 			pstmt = conn.prepareStatement(sql);
@@ -263,7 +264,7 @@ public class BoardRepository {
 
 	}
 
-	// vo 객체는 부모의 것
+	// vo 객체의 정보들은 부모에서 따옴
 	public Boolean insertReply(BoardVo vo) {
 		Boolean result = false;
 		Connection conn = null;
@@ -412,51 +413,7 @@ public class BoardRepository {
 
 	}
 
-	public List<Long> searchList(String kwd) {
-		List<Long> result = new ArrayList<>();
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try {
-
-			conn = getConnection();
-
-			String sql = "select no from board where title like concat('%', ?, '%')";
-
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, kwd);
-
-			rs = pstmt.executeQuery();
-
-			while(rs.next()) {
-				Long no = rs.getLong(1);
-
-				result.add(no);
-			}
-
-		} catch (SQLException e) {
-			System.out.println("error:" + e);
-		} finally {
-
-			try {
-				if(rs != null)
-					rs.close();
-
-				if(pstmt != null)
-					pstmt.close();
-
-				if(conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return result;
-	}
-
-	public List<BoardVo> searchList1(String kwd) {
+	public List<BoardVo> searchList(String kwd) {
 		List<BoardVo> result = new ArrayList<>();
 
 		Connection conn = null;
