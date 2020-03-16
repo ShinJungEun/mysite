@@ -15,8 +15,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(
 			HttpServletRequest request, 
 			HttpServletResponse response,
-			Object handler)
-			throws Exception {
+			Object handler) throws Exception {
 
 		// 1. handler 종류 확인
 		if(handler instanceof HandlerMethod == false) {
@@ -32,8 +31,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		
 		// 4. Method에 @Auth가 없으면 Type에 붙어있는지 확인한다(과제)
 		if(auth == null) {
-			// auth = <-
-
+			auth = handlerMethod.getMethod().getDeclaringClass().getAnnotation(Auth.class);
 		}
 		
 		// 5. Type이나 Method 둘 다 @Auth가 적용이 안되어 있는 경우,
@@ -41,12 +39,12 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			return true;
 		}
 		
+		//6. @Auth가 붙어 있기 때문 인증(Authentification) 여부 확인
 		HttpSession session = request.getSession();
 		if(session == null) {
 			response.sendRedirect(request.getContextPath() + "/user/login");
 			return false;
 		}
-		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		if(authUser == null) {
 			response.sendRedirect(request.getContextPath() + "/user/login");
@@ -64,7 +62,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		
 		// 8. @Auth의 role이 "ADMIN"인 경우에는 
 		//    반드시 authUser의 role이 "ADMIN"이여야 한다.
-		if("ADMIN".equals(authUser.getRole()) == false) {
+		if("ADMIN".equals(authUser.getRole()) == false) { 
 			response.sendRedirect(request.getContextPath());
 			return false;
 		}
@@ -72,7 +70,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		// @Auth의 role => "ADMIN"	
 		// authUser의 role => "ADMIN"
 		// 인증확인 되었으므로 핸들러 메소드 실행
-		return false;
+		return true;
 	}
 
 }

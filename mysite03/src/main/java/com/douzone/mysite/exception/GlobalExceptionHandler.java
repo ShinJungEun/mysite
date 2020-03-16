@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
 		
 		//2. 안내페이지 가기(정상종료)
 		request.setAttribute("exception", errors.toString());
-		request.getRequestDispatcher("/WEB-INF/views/error/exception.jsp").forward(request, response);;
+		request.getRequestDispatcher("/WEB-INF/views/error/exception.jsp").forward(request, response);
 		
 		
 	}

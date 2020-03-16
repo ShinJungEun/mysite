@@ -20,7 +20,6 @@ import com.douzone.mysite.vo.UserVo;
 import com.douzone.security.Auth;
 import com.douzone.security.AuthUser;
 
-@Auth
 @Controller
 @RequestMapping("/board")
 public class BoardController {
