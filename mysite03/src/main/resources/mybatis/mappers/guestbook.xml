@@ -8,7 +8,8 @@
 		    select no, 
 		           name, 
 		           date_format(reg_date,'%Y-%m-%d %h:%i:%s'), 
-		           contents
+		           contents,
+		           password
 		     from guestbook
 		 order by no desc
 		]]>
@@ -29,5 +30,18 @@
 		    limit 0, 3
 		]]>
 	</select>	
+	
+	<insert id="insert" parameterType="guestbookvo">
+		<![CDATA[
+			insert into guestbook 
+			     values (null, #{name}, #{contents}, #{password}, now())
+		]]>
+	</insert>
+	
+	<delete id="delete" parameterType="Long">
+		<![CDATA[
+			delete from guestbook where no=#{no}
+		]]>
+	</delete>
 
 </mapper>
