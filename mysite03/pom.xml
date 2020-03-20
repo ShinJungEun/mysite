@@ -2,7 +2,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>com.douzone</groupId>
 		<artifactId>mysite</artifactId>
@@ -16,6 +16,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<org.springframework-version>4.3.8.RELEASE</org.springframework-version>
+		<jcloverslf4j.version>1.7.6</jcloverslf4j.version>
+		<logback.version>1.1.1</logback.version>
 	</properties>
 
 	<dependencies>
@@ -24,14 +26,23 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>${org.springframework-version}</version>
+
+			<!-- JCL 제외 -->
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+
 		</dependency>
 
- 		<!-- Spring Web -->
+		<!-- Spring Web -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 			<version>${org.springframework-version}</version>
-		</dependency> 
+		</dependency>
 
 		<!-- Spring MVC -->
 		<dependency>
@@ -42,29 +53,36 @@
 
 		<!-- spring JDBC -->
 		<dependency>
-		   <groupId>org.springframework</groupId>
-		   <artifactId>spring-jdbc</artifactId>
-		   <version>${org.springframework-version}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework-version}</version>
 		</dependency>
 		
+		<!-- spring aspect -->
+		<dependency>
+		       <groupId>org.springframework</groupId>
+		       <artifactId>spring-aspects</artifactId>
+		       <version>${org.springframework-version}</version>
+		</dependency>
+
 		<!-- MyBatis -->
 		<dependency>
-		   <groupId>org.mybatis</groupId>
-		   <artifactId>mybatis</artifactId>
-		   <version>3.2.2</version>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.2.2</version>
 		</dependency>
-		
+
 		<dependency>
-		   <groupId>org.mybatis</groupId>
-		   <artifactId>mybatis-spring</artifactId>
-		   <version>1.2.0</version>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.2.0</version>
 		</dependency>
-		
+
 		<!-- Common DBCP (BasicDataSource) -->
 		<dependency>
-		   <groupId>commons-dbcp</groupId>
-		   <artifactId>commons-dbcp</artifactId>
-		   <version>1.4</version>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
 		</dependency>
 
 		<!-- MariaDB JDBC Driver -->
@@ -92,6 +110,19 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>1.4</version>
+		</dependency>
+
+		<!-- Logback -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${jcloverslf4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
 		</dependency>
 
 		<!-- Servlet -->
@@ -166,5 +197,5 @@
 		</plugins>
 
 	</build>
-	
+
 </project>
