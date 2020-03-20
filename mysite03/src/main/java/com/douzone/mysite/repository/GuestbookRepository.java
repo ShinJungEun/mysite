@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StopWatch;
 
 import com.douzone.mysite.vo.GuestbookVo;
 
@@ -20,11 +21,21 @@ public class GuestbookRepository {
 	private SqlSession sqlSession;
 	
 	public List<GuestbookVo> findAll() {
-		return sqlSession.selectList("guestbook.findAll");
+//		StopWatch sw = new StopWatch();
+//		sw.start();
+		
+		List<GuestbookVo> list =  sqlSession.selectList("guestbook.findAll");
+		
+//		sw.stop();
+		
+//		Long totalTime = sw.getTotalTimeMillis();
+//		System.out.println("----" + totalTime + "----");
+		return list;
 	}
 
 	public int insert(GuestbookVo guestbookVo) {
-		return sqlSession.insert("guestbook.insert", guestbookVo);
+		int result = sqlSession.insert("guestbook.insert", guestbookVo);
+		return result;
 	}
 
 	public int delete(Long no, String password) {

@@ -9,6 +9,7 @@ import com.douzone.mysite.service.SiteService;
 
 @Controller
 public class MainController {
+
 	
 	@Autowired
 	private SiteService siteService;
@@ -16,6 +17,7 @@ public class MainController {
 	@RequestMapping({"", "/main"})
 	public String index(Model model) {
 		siteService.findContext(model);
+		
 		return "main/index";
 	}
 }
