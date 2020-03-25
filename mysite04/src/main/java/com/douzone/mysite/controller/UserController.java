@@ -88,6 +88,16 @@ public class UserController {
 	}
 	
 	
+	// Handler에 url이 있어야 실행이 됨(들어갈일은 없음)
+	@RequestMapping(value="/auth")
+	public void auth() {
+	}
+	
+	@RequestMapping(value="/logout")
+	public void logout() {
+	}
+	
+	
 //	@ExceptionHandler(Exception.class)
 //	public String handleException() {
 //		return "error/exception";
