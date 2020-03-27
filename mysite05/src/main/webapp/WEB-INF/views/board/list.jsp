@@ -38,7 +38,7 @@
 							<td
 								style="text-align:left; padding-left:${ BoardVo.depth * 20}px">
 								<c:if test="${ BoardVo.depth >= 1 }">
-									<img src='/mysite03/assets/images/reply.png'>
+									<img src='${ pageContext.request.contextPath }/assets/images/reply.png'>
 								</c:if> <c:choose>
 									<c:when test="${ BoardVo.regDate eq '0002-11-30 12:00:00.0' }">
 										<a>(삭제된 게시물입니다.)</a>
