@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="jquery/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+//선택자 - 전체
+	$(function() {
+		setTimeout(function() {
+			$("li *").css("color", "red");
+			
+		}, 2000);
+	});
+</script>
+</head>
+<body>
+	<ul>
+		<li><strong> 텍스트 </strong> 텍스트 텍스트 텍스트 텍스트</li>
+		<li><em> 텍스트 </em> 텍스트 텍스트 텍스트 텍스트</li>
+		<li><span> 텍스트 </span> 텍스트 텍스트 텍스트 텍스트</li>
+		<li>텍스트텍스트텍스트텍스트</li>
+	</ul>
+</body>
+</html>

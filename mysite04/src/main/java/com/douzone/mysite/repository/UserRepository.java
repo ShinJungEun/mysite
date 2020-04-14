@@ -50,4 +50,8 @@ public class UserRepository {
 				
 		return sqlSession.update("user.update", userVo);
 	}
+
+	public UserVo find(String email) {
+		return sqlSession.selectOne("user.findByEmail", email);
+	}
 }

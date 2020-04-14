@@ -15,7 +15,6 @@ public class UserService {
 	public boolean join(UserVo vo) {
 		int count = userRepository.insert(vo);
 		return count == 1;
-		
 	}
 
 	public UserVo getUser(UserVo userVo) {
@@ -30,6 +29,10 @@ public class UserService {
 	public boolean updateUser(UserVo userVo) {
 		int count = userRepository.update(userVo);
 		return count == 1;
+	}
+
+	public boolean existUser(String email) {
+		return userRepository.find(email) != null;
 	}
 
 }
