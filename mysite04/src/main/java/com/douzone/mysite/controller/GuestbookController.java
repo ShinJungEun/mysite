@@ -21,7 +21,6 @@ public class GuestbookController {
 	
 	@RequestMapping(value={"", "/list"}, method=RequestMethod.GET)
 	public String index(Model model) {
-//		System.out.println("list");
 		guestbookService.list(model);
 		return "guestbook/list";
 	}
@@ -44,6 +43,11 @@ public class GuestbookController {
 			@RequestParam(value="password", required=true, defaultValue="") String password) {
 		guestbookService.delete(no,  password);
 		return "redirect:/guestbook";
+	}
+	
+	@RequestMapping(value={"/spa"}, method=RequestMethod.GET)
+	public String indexSPA(Model model) {
+		return "guestbook/index-spa";
 	}
 	
 }

@@ -7,11 +7,33 @@
 		<![CDATA[
 		    select no,
 		           name, 
-		           date_format(reg_date,'%Y-%m-%d %h:%i:%s'), 
+		           date_format(reg_date,'%Y-%m-%d %h:%i:%s') as regDate, 
 		           contents,
 		           password
 		     from guestbook
 		 order by no desc
+		]]>
+	</select>
+	
+	<select id="findAllByNo" parameterType="long" resultType="guestbookvo">
+		<![CDATA[
+		    select no,
+		           name, 
+		           date_format(reg_date,'%Y-%m-%d %h:%i:%s') as regDate, 
+		           contents,
+		           password
+		     from guestbook
+		]]>  
+		
+		<if test="_parameter > 0">
+			<![CDATA[
+				where no < #{_parameter}
+			]]>
+		</if>
+		 
+		<![CDATA[     
+		 	order by no desc
+		 	   limit 0, 3
 		]]>
 	</select>
 	

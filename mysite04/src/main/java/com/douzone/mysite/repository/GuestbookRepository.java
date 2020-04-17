@@ -32,6 +32,10 @@ public class GuestbookRepository {
 //		System.out.println("----" + totalTime + "----");
 		return list;
 	}
+	
+	public List<GuestbookVo> findAll(Long startNo) {
+			return sqlSession.selectList("guestbook.findAllByNo", startNo);
+	}
 
 	public int insert(GuestbookVo guestbookVo) {
 		int result = sqlSession.insert("guestbook.insert", guestbookVo);
@@ -60,7 +64,6 @@ public class GuestbookRepository {
 			}
 		}
 		return password;
-
 	}
 
 }
